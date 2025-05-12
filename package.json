@@ -1,7 +1,7 @@
 {
   "name": "finalenvironment",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "dev": "webpack serve --open --mode=development",
     "build:dev": "webpack --mode=development",
