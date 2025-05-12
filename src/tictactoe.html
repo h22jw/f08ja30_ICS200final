@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="playArea">
+        <div id="cellArea">
+            <div cellIndex="0" class="cell"></div>
+            <div cellIndex="1" class="cell"></div>
+            <div cellIndex="2" class="cell"></div>
+            <div cellIndex="3" class="cell"></div>
+            <div cellIndex="4" class="cell"></div>
+            <div cellIndex="5" class="cell"></div>
+            <div cellIndex="6" class="cell"></div>
+            <div cellIndex="7" class="cell"></div>
+            <div cellIndex="8" class="cell"></div>
+        </div>
+        <h2 id="gameStatus"> game is </h2>
+        <button id="resetButton"> Reset </button>
+    </div>
+</body>
+<div class="rockbottom" style="position: absolute; bottom: 15px;">
+    <button onclick="location.href='index.html'" style="height: 70px; width: 70px;"> Back </button>
+</div>
+<style>
+.cell {
+    width: 75px;
+    height: 75px;
+    border: 2px solid;
+    box-shadow: 0 0 0 2px;
+    line-height: 75px;
+    cursor: pointer;
+}
+#cellArea {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 225px;
+    margin: auto;
+}
+
+#playArea {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    text-align: center;
+}
+
+body {
+    background-color: rgb(224, 206, 181);
+}
+</style>
+<script>
+const cells = document.querySelectorAll(".cell")
+const gamestatus = document.querySelector("#gameStatus")
+const restartbutton = document.querySelector("#resetButton")
+const winconditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+]
+
+let pool = ["", "", "", "", "", "", "", "", ""]
+let currentPlayer = "X"
+let running = false
+
+gamestart()
+
+function gamestart() {
+
+    cells.forEach(function(cell) {
+        cell.addEventListener("click", cellClicked)
+    })
+    restartbutton.addEventListener("click", gameRestart)
+    gamestatus.textContent = `${currentPlayer}'s turn.`
+    running = true
+    console.log(running, "running")
+    
+}
+
+function cellClicked() {
+
+    const cellIndex = this.getAttribute("cellIndex")
+    if(pool[cellIndex] != "" || !running) {
+        return;
+    }
+
+    updateCell(this, cellIndex)
+    wincheck()
+
+}
+
+function updateCell(cell, index) {
+
+    pool[index] = currentPlayer
+    cell.textContent = currentPlayer
+
+}
+
+function turnswap() {
+
+    console.log("player change")
+    currentPlayer = (currentPlayer === "X") ? "O" : "X"
+    gamestatus.textContent = `${currentPlayer}'s turn`
+
+}
+
+function wincheck() {
+
+    let roundWon = false
+    console.log("roundWon declared")
+
+    for(let i = 0; i < winconditions.length; i++) {
+
+        const condition = winconditions[i]
+        const cellA = pool[condition[0]]
+        const cellB = pool[condition[1]]
+        const cellC = pool[condition[2]]
+
+        if(cellA == "" || cellB == "" || cellC == "") {
+            console.log("continue")
+            continue
+        }
+
+        if(cellA == cellB && cellB == cellC) {
+            console.log("break")
+            roundWon = true;
+            break;
+        }
+    }
+        console.log("reached roundWon")
+    if(roundWon) {
+
+        console.log("roung won")
+        gamestatus.textContent = `${currentPlayer} has won.`
+        running = false
+
+    } else if (!pool.includes("")) {
+
+        console.log("else if")
+        gamestatus.textContent = "Draw."
+        running = false
+
+    } else {
+        turnswap()
+    }
+}
+
+function gameRestart() {
+
+    currentPlayer = "X"
+    pool = ["", "", "", "", "", "", "", "", ""]
+    gamestatus.textContent = `${currentPlayer}'s turn.`
+    cells.forEach(function(cell) {
+        cell.textContent = ""
+    })
+    running = true;
+
+}
+</script>
+</html>

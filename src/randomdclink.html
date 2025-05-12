@@ -1,0 +1,52 @@
+<p> Discord links have the same idea as YouTube links. </p>
+<p> They use a 6 to 8 digit, a-z, A-Z, 0-9 value system. </p>
+<p> Same information applies here as to the YouTube generator. </p>
+<p id="out"> Out </p>
+<button onclick="create()"> Click for a new link </button>
+<button id="tog" style="color:red;background-color:red" onclick="toggle()"> [ ] </button>
+<div id="k"></div>
+<button id="l" style="opacity:0.07;visibility:hidden" onclick="(function(){for(let i=0;i<25;i++)create()})();"> Forbidden button </button>
+<style></style>
+<div class="rockbottom" style="position: absolute; bottom: 15px;">
+    <button onclick="location.href='index.html'" style="height: 70px; width: 70px;"> Back </button>
+</div>
+
+<script>
+var pool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+var onoff = false;
+
+function qwe(x) {return document.getElementById(x)}
+function create() {
+	var ID = "";
+    var newrng = Math.floor(Math.random() * 3);
+    var hhh = 8 - newrng;
+    for(let a = 0; a < hhh; a++) {
+    	var rng = Math.floor(Math.random() * pool.length);
+        ID += pool[rng];
+    }
+    
+    if(onoff == true) {
+    	window.open(`https://www.discord.gg/${ID}`, "_blank")
+    } else if(onoff == false) {
+    	qwe("out").innerHTML = `https://www.discord.gg/${ID}`;
+    }
+}
+
+function toggle() {
+	if(onoff == false) {
+    	onoff = true;
+        qwe("tog").style.color = "green";
+        qwe("tog").style.backgroundColor = "green";
+        qwe("l").style.visibility = "visible";
+    } else if(onoff == true) {
+    	onoff = false;
+		qwe("tog").style.color = "red";
+        qwe("tog").style.backgroundColor = "red";
+        qwe("l").style.visibility = "hidden";
+    }
+}
+
+qwe("k").innerHTML = "<br>".repeat(12)
+create()
+
+</script>

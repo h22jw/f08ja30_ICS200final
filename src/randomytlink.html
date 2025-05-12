@@ -1,0 +1,53 @@
+<p> YouTube videos use a base 64 system for each of the 11 digits of their entire ID. </p>
+<p> a-z, A-Z, 0-9, and - & _ are the digits used for that base 64 system. </p>
+<p> This means there are 64^11 possible video IDs, most are not used yet. </p>
+<p> Very often you'll get a link that leads to a nonexistant video. Just retry! </p>
+<p> By default, this project <u>won't</u> open up a new tab with the generated YouTube link. </p>
+<p> You can <u>click the colored button</u> to toggle if you want it to open a new tab. </p>
+<p id="tag">  </p>
+<button onclick="create()"> Click for a new link </button>
+<button id="tog" style="color:red;background-color:red" onclick="toggle()"> [ ] </button>
+<div id="k"></div>
+<button id="l" style="opacity:0.07" onclick="(function(){for(let i=0;i<25;i++)create()})();"> Forbidden button </button>
+
+<div class="rockbottom" style="position: absolute; bottom: 15px;">
+    <button onclick="location.href='index.html'" style="height: 70px; width: 70px;"> Back </button>
+</div>
+
+<script>
+var pool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+var onoff = false;
+
+function qwe(x) {return document.getElementById(x)}
+function create() {
+	var ID = "";
+    for(let a = 0; a < 11; a++) {
+    	var rng = Math.floor(Math.random() * pool.length);
+        ID += pool[rng];
+    }
+    
+    if(onoff == true) {
+    	window.open(`https://www.youtube.com/watch?v=${ID}`, "_blank")
+    } else if(onoff == false) {
+    	qwe("tag").innerHTML = `https://www.youtube.com/watch?v=${ID}`;
+    }
+}
+
+function toggle() {
+	if(onoff == false) {
+    	onoff = true;
+        qwe("tog").style.color = "green";
+        qwe("tog").style.backgroundColor = "green";
+        qwe("l").style.visibility = "visible";
+    } else if(onoff == true) {
+    	onoff = false;
+		qwe("tog").style.color = "red";
+        qwe("tog").style.backgroundColor = "red";
+        qwe("l").style.visibility = "hidden";
+    }
+}
+
+qwe("k").innerHTML = "<br>".repeat(12)
+create()
+
+</script>

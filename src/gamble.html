@@ -1,0 +1,228 @@
+<p id="totalcash"> $250.00 </p>
+<p id="tag"> You rolled a </p>
+<p class="count" id="nrounds"> Rounds </p>
+<p id="rnd"> Multiplier: 1x </p> 
+<p class="highest" id="hiround"> Highest Failed Round: 0 </p>
+<p class="highest" id="hibail"> | Highest Bailed Round: 0 </p>
+<p class="highest" id="himoner"> | Highest Cash Peak: $250 </p>
+
+<div class="buttons">
+<button id="ply" class="playButton hov" onClick="play()"> <u>D</u>eposit </button>
+<button id="trg" class="hit hov" onClick="hit()"> <u>H</u>it me </button>
+<button id="bil" class="bailButton hov" onClick="bail()"> <u>B</u>ailout </button>
+</div>
+<br>
+<div><input class="depo" id="deposit" type="text" onkeydown="shortcut(event)"></div>
+<p> Shortcuts: <u>D</u> to Deposit, <u>H</u> to Hit, <u>B</u> to Bail </p>
+<style>
+p {
+	font-family: Arial;
+}
+
+button {
+	padding: 10px 30px;
+}
+
+.highest {
+	display: inline-block;
+}
+
+.count {
+	visibility: visible;
+}
+
+.hit {
+	visibility: hidden;
+}
+
+.bailButton {
+	visibility: hidden;
+}
+
+.depo {
+	width: 80
+}
+
+</style>
+<div class="rockbottom" style="position: absolute; bottom: 15px;">
+    <button onclick="location.href='index.html'" style="height: 70px; width: 70px;"> Back </button>
+</div>
+<script>
+
+function tmp(x) {
+	return document.getElementById(x)
+}
+
+function rng(x) {
+	return Math.ceil(Math.random() * x)
+}
+
+var allin;
+var allintoggle = false;
+var rounds = 1;
+var cash = 250
+var hiscore = 1
+var hibailscore = 1
+var himonerscore = cash
+var multi = 1
+var payamount = tmp("deposit").value
+var gameplaying = false;
+
+function roundsubstring() {
+    
+    multi = multi + 0.1
+    return multi.toFixed(1)
+
+}
+
+function hit() {
+	let i = rng(25)   
+    if(i == 1) {
+    	
+        tmp("tag").innerHTML = `You rolled a ${i}, unfortunate!`
+        tmp("totalcash").innerHTML = "BAIL"
+        tmp("ply").style.visibility = "visible";
+        tmp("trg").style.visibility = "hidden";
+        tmp("bil").style.visibility = "hidden";
+        tmp("deposit").style.visibility = "visible";
+        
+    	window.clearInterval(allin)
+        allin = null
+        allintoggle = false;
+        tmp("totalcash").style.color = "black";
+        
+		tmp("deposit").focus();
+        gameplaying = false;
+        
+        if(rounds > hiscore) {    
+        	tmp("hiround").innerHTML = `Highest Failed Round: ${rounds-1}` 
+            hiscore = rounds;    
+        }
+        
+        if(cash > himonerscore) {
+        	tmp("himoner").innerHTML = `| Highest Cash Peak: $${cash-1}`
+            highmonerscore = cash;
+        }
+ 
+        rounds = 1;    
+        multi = 1;    
+        } else {    
+        	tmp("nrounds").innerHTML = `Rounds: ${rounds++}`    
+        	tmp("rnd").innerHTML = `Multiplier: ${roundsubstring()}x` //could do
+        	tmp("tag").innerHTML = `You rolled a ${i}`    			  //this inline
+        }													//^ SHOT UP
+}
+
+function bail() {
+    tmp("ply").style.visibility = "visible";
+	tmp("trg").style.visibility = "hidden";  // These hide things
+    tmp("bil").style.visibility = "hidden";  // ^ got it thanks , bozo
+    tmp("deposit").style.visibility = "visible";
+    
+    tmp("deposit").focus();
+    gameplaying = false;
+    
+    if(allintoggle == true) {
+    	window.clearInterval(allin)
+        allin = null
+        allintoggle = false;
+        tmp("totalcash").style.color = "black";
+    }
+    
+    if(rounds > hibailscore) {
+        tmp("hibail").innerHTML = `| Highest Bailed Round: ${rounds-1}` 
+        hibailscore = rounds;    
+    }
+    
+    let cutmultiplier = tmp("rnd").innerHTML.substr(11)
+    let cutthex = cutmultiplier.substring(0, cutmultiplier.length - 1) 
+    let payout = Number(cutthex);    
+    // ^ I somehow was smart enough to do this?
+    
+    cash = cash + payamount*payout    
+    tmp("totalcash").innerHTML = `$${cash.toFixed(2)}`    
+    
+    multi = 1    
+    tmp("rnd").innerHTML = "Multiplier: 1x"    
+    rounds = 1    
+    tmp("nrounds").innerHTML = "Rounds: 0"    
+    
+    if(cash > himonerscore) {
+       	tmp("himoner").innerHTML = `| Highest Cash Peak: $${cash.toFixed(2)}`
+        highmonerscore = cash;
+    }
+}
+
+function play() {    
+	let i = Number(tmp("deposit").value);   
+	payamount = i.toFixed(2)   
+
+    if(cash <= 0) {
+    	tmp("tag").innerHTML = "You're too poor to play now!"   
+    } 
+    
+    if(payamount <= 0) {	
+    	tmp("deposit").value = "???wth"
+    } else if(payamount > cash) {	
+    	tmp("deposit").value = "Too high"
+    } else if(payamount != Number(payamount)) {	  
+    	tmp("deposit").value = "Use a #"
+    } else {
+    	gameplaying = true;
+        if(payamount == cash) {
+        	cash = 0
+            if(!allin) {
+            	allintoggle = true;
+            	allin = window.setInterval(function()
+                {
+            		tmp("totalcash").style.color = `rgb(${rng(255)},${rng(255)},${rng(255)})`
+              	},1)
+            }
+            
+        	tmp("totalcash").innerHTML = `ALL IN BAYBEE`	
+        	tmp("ply").style.visibility = "hidden";	   
+        	tmp("trg").style.visibility = "visible";   
+        	tmp("bil").style.visibility = "visible";   
+        	tmp("deposit").style.visibility = "hidden" 
+        
+        	tmp("rnd").innerHTML = "Multiplier: 1x"    
+        	tmp("tag").innerHTML = "You rolled a "     
+        	tmp("nrounds").innerHTML = "Rounds: 0"  
+        } else {
+        	cash = cash - payamount		
+        	tmp("totalcash").innerHTML = `$${cash.toFixed(2)}`	
+        	tmp("ply").style.visibility = "hidden";	   
+        	tmp("trg").style.visibility = "visible";   
+        	tmp("bil").style.visibility = "visible";   
+        	tmp("deposit").style.visibility = "hidden" 
+        
+        	tmp("rnd").innerHTML = "Multiplier: 1x"    
+        	tmp("tag").innerHTML = "You rolled a "     
+        	tmp("nrounds").innerHTML = "Rounds: 0"  
+        } 
+	} 
+}
+
+document.addEventListener('keydown', function(a){
+	if(window.event) {
+        shortcut(a.keyCode)
+    }
+})
+
+function shortcut(x) {
+	// enter = 13
+	// d = 68
+    // b = 66
+    // h = 72
+	if(x == 68 && gameplaying == false) {
+    	play()
+    } else if(x == 13 && gameplaying == false) {
+    	play()
+    } else if(x == 66 && gameplaying == true) {
+    	bail()
+    } else if(x == 72 && gameplaying == true) {
+    	hit()
+    }
+}
+
+</script>

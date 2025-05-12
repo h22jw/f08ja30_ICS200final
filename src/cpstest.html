@@ -1,0 +1,121 @@
+<p class="title" id="tag" onclick="lmao()"> Clicker Test </p>
+<input id="inp" type="textinput" onkeyup="settime()"><br><br><br>
+<button class="cliks clik" id="test" onclick="tmp()"> CPS </button>
+<p class="scores" id="lastplay"> Last Sprint: </p>
+<p class="scores" id="fastest"> Best Sprint: </p>
+
+<style>
+
+.title {
+	font-size: 60px;
+    font-family: monospace, monospace;
+}
+
+.scores {
+	font-size: 20px
+}
+
+.cliks {
+	padding: 150px 150px;
+    transition-duration: 0.2s;
+    
+    font-size: 30px;
+    font-family: arial;
+    color: green;
+}
+.clik {
+    border-radius: 30px;
+    background-color: white;
+    border: 6px solid green;
+}
+.clik:hover {
+	background-color: green;
+    color: white;
+}
+
+</style>
+<div class="rockbottom" style="position: absolute; bottom: 15px;">
+    <button onclick="location.href='index.html'" style="height: 70px; width: 70px;"> Back </button>
+</div>
+<script>
+
+document.getElementById("inp").style.visibility = "hidden";
+
+var seconds = 5
+
+var active = false;
+var b = false;
+var c;
+var bot = false;
+var clicks = 0;
+var hiscore = 0;
+var timeMS = 0;
+var timeS = seconds;
+
+function settime() {
+	let i = document.getElementById("inp").value;
+    if(i != Number(i)) {
+    	return;
+    } else {
+    	seconds = Number(i).toFixed(0,1);
+    }
+}
+
+function w(x,y) {
+	return document.getElementById(x).innerHTML = y
+}
+
+function lmao() { 
+	bot = true;
+	let i = setInterval(function(){
+    	document.getElementById("test").click() 
+    },1)
+}
+
+function tmp() {
+
+if(active == false) {
+
+	b = false;
+	active = true;
+    document.getElementById("inp").style.visibility = "hidden";
+    
+	var c = setInterval(function() {
+    	if(timeMS == 0 && timeS == 0) {
+        	if(bot == true) clearInterval(i), bot = false;
+        	clearInterval(c);
+            b = true;
+            document.getElementById("inp").style.visibility = "visible";
+            w("test", "Click to reset");
+            w("lastplay", `Last Sprint: ${(clicks/seconds)}cps, (${clicks} clicks), at ${seconds} seconds`)
+            
+            if((clicks/seconds) > hiscore) {
+            	hiscore = (clicks/seconds);
+            	w("fastest", `Best Sprint: ${hiscore}cps, (${clicks} clicks), at ${seconds} seconds`);
+            }
+        }
+        if(timeMS < 10) {
+        	w("tag", `${timeS}:0${timeMS--}|${clicks}`)
+    	} else {
+        	w("tag", `${timeS}:${timeMS--}|${clicks}`)
+        }
+        if(timeMS < 0) timeS--, timeMS = 99
+        
+    },10)
+} else if(b == true) {
+	
+    timeMS = 0;
+    timeS = seconds;
+    clicks = 0;
+	active = false;
+    w("test","CPS")
+    w("tag", `${seconds}:00|0`)
+    document.getElementById("inp").style.visibility = "hidden";
+    
+} else if(active == true && b == false)	 {
+	clicks++
+} // else statement
+
+}	// function 
+
+</script>
