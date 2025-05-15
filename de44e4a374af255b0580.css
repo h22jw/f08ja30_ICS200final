@@ -6,7 +6,7 @@
     background-color: rgb(255, 176, 87);
     padding: 10px 10px 10px 200px;
     height: 90px;
-    width: 100%;
+    width: 89%;
     overflow: hidden;
     line-height: 25px
 }
@@ -45,7 +45,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url("./crumpled.png");
+    background-image: url("./media/crumpled.png");
     background-color: rgb(241, 241, 241);
 }
 
@@ -69,49 +69,49 @@ body {
 }
 
 .gambler {
-    background-image: url("./gamblingEdit.png");
+    background-image: url("./media/gamblingEdit.png");
     background-position: center;
     background-size: cover;
 }
 
 .randomytlink {
-    background-image: url("./randomytlink.png");
+    background-image: url("./media/randomytlink.png");
     background-position: center;
     background-size: cover;
 }
 
 .cps {
-    background-image: url("./cps.png");
+    background-image: url("./media/cps.png");
     background-position: center;
     background-size: cover;
 }
 
 .randomdiscordlink {
-    background-image: url("./randomdiscordlink.png");
+    background-image: url("./media/randomdiscordlink.png");
     background-position: center;
     background-size: cover;
 }
 
 .lob {
-    background-image: url("./lob.png");
+    background-image: url("./media/lob.png");
     background-position: center;
     background-size: cover;
 }
 
 .tictactoe {
-    background-image: url("./tictactoe.png");
+    background-image: url("./media/tictactoe.png");
     background-position: center;
     background-size: cover;
 }
 
 .reaction {
-    background-image: url("./reactiontest.png");
+    background-image: url("./media/reactiontest.png");
     background-position: center;
     background-size: cover;
 }
 
 .colorer {
-    background-image: url("./color.png");
+    background-image: url("./media/color.png");
     background-position: center;
     background-size: cover;
 }
@@ -135,7 +135,7 @@ body {
     position: absolute;
     margin-top: 10px;
     height: 120px;
-    width: 100%;
+    width: 99%;
     background-color: rgb(68, 68, 68);
 }
 
