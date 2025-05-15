@@ -45,7 +45,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url("media/crumpled.png");
+    background-image: url("./crumpled.png");
     background-color: rgb(241, 241, 241);
 }
 
@@ -69,49 +69,49 @@ body {
 }
 
 .gambler {
-    background-image: url("media/gamblingEdit.png");
+    background-image: url("./gamblingEdit.png");
     background-position: center;
     background-size: cover;
 }
 
 .randomytlink {
-    background-image: url("media/randomytlink.png");
+    background-image: url("./randomytlink.png");
     background-position: center;
     background-size: cover;
 }
 
 .cps {
-    background-image: url("media/cps.png");
+    background-image: url("./cps.png");
     background-position: center;
     background-size: cover;
 }
 
 .randomdiscordlink {
-    background-image: url("media/randomdiscordlink.png");
+    background-image: url("./randomdiscordlink.png");
     background-position: center;
     background-size: cover;
 }
 
 .lob {
-    background-image: url("media/lob.png");
+    background-image: url("./lob.png");
     background-position: center;
     background-size: cover;
 }
 
 .tictactoe {
-    background-image: url("media/tictactoe.png");
+    background-image: url("./tictactoe.png");
     background-position: center;
     background-size: cover;
 }
 
 .reaction {
-    background-image: url("media/reactiontest.png");
+    background-image: url("./reactiontest.png");
     background-position: center;
     background-size: cover;
 }
 
 .colorer {
-    background-image: url("media/color.png");
+    background-image: url("./color.png");
     background-position: center;
     background-size: cover;
 }
